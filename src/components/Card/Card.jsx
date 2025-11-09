@@ -1,13 +1,31 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { getImgUrl } from "../../utils/utils";
 import Rating from "../UI/Rating";
 import Tag from "./../../assets/tag.svg"
 import MovieDetailsModal from "../MovieDetailsModal/MovieDetailsModal";
+import { MovieContext } from "../../context";
 
 
 const Card = ({ movie }) => {
     const [showModal, setShowModal] = useState(false)
     const [selectedMovie, setSelectedMovie] = useState(null)
+
+    const { cartData, setCartData } = useContext(MovieContext)
+
+    const handleAddToCart = (e, movie) => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        const found = cartData.find(item => item.id === movie.id)
+
+        if (!found) {
+            setCartData([...cartData, movie])
+        } else {
+            console.error(`The movie ${movie.title} has been added to the cart already!`)
+            alert(`The movie ${movie.title} has been added to the cart already!`)
+        }
+
+    }
 
     const handleMovieSelection = (movie) => {
         setSelectedMovie(movie)
@@ -39,7 +57,9 @@ const Card = ({ movie }) => {
                             <Rating value={movie.rating} />
                         </div>
                         <a className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
-                            href="#">
+                            href="#"
+                            onClick={(e) => handleAddToCart(e, movie)}
+                        >
                             <img src={Tag} alt="tag" />
                             <span> ${movie.price} | Add to Cart</span>
                         </a>
