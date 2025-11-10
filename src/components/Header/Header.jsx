@@ -9,7 +9,7 @@ import { MovieContext } from '../../context'
 
 const Header = () => {
     const [showCart, setShowCart] = useState(false)
-    const { cartData } = useContext(MovieContext)
+    const { state } = useContext(MovieContext)
 
     const handleShowCart = () => {
         setShowCart(true)
@@ -50,9 +50,9 @@ const Header = () => {
                             <img src={Cart} width="24" height="24" alt="cart" />
                         </a>
 
-                        {cartData.length > 0 && (
+                        {state.cartData.length > 0 && (
                             <span className="rounded-full absolute -top-2 -right-2 bg-primary text-white text-center text-xs font-semibold w-5 h-5 flex items-center justify-center">
-                                {cartData.length}
+                                {state.cartData.length}
                             </span>
                         )}
                     </li>
