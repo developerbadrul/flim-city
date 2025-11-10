@@ -44,6 +44,7 @@ const Card = ({ movie }) => {
                     <MovieDetailsModal
                         movie={selectedMovie}
                         onClose={handleModalClose}
+                        onCartAdd={handleAddToCart}
                     />
                 )
             }
